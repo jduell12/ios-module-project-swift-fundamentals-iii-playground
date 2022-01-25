@@ -10,6 +10,12 @@ let usToMxn = 20.11
 
 var currency: Currency = .mxn
 
+let currencyFormatter:NumberFormatter = {
+    let nf = NumberFormatter()
+    nf.numberStyle = .currency
+    return nf
+}()
+
 func convert(_ dollars: Double) -> Double {
     switch (currency){
         case .cad:
@@ -23,7 +29,7 @@ func convertString(amountString: String) -> String? {
     guard let amount = Double(amountString) else {
         return nil
     }
-    return String(convert(amount))
+    return currencyFormatter.string(from: NSNumber(value: convert(amount)))
 }
 
 print(convertString(amountString: "20")!)
